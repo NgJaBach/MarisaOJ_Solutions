@@ -22,17 +22,61 @@ typedef unsigned long long ull;
 #define endl '\n'
 const int N=200050,M=1000000007,D=20;
 const ll INF=1e18+7;
-int cha[N][D],subsize[N];
+vector<int>gay[N];
+ll a[N];
+int cha[N][D],h[N];
 void dfs(int u,int p){
+    h[u]=h[p]+1;
     cha[u][0]=p;
-    
-    subsize[u]=1;
+    for(int i=1;i<D;++i) cha[u][i]=cha[cha[u][i-1]][i-1];
+    for(auto v:gay[u]) if(v!=p){
+        dfs(v,u);
+    }
+    return;
+}
+int lca(int u,int v){
+    if(h[u]<h[v]) swap(u,v);
+    int k=h[u]-h[v];
+    for(int i=0;i<D;++i) if((k>>i)&1) u=cha[u][i];
+    if(u==v) return u;
+    for(int i=D-1;i>=0;--i){
+        if(cha[u][i]!=cha[v][i]){
+            u=cha[u][i];
+            v=cha[v][i];
+        }
+    }
+    return cha[u][0];
+}
+void dfs2(int u,int p){
+    for(auto v:gay[u]){
+        if(v==p) continue;
+        dfs2(v,u);
+        a[u]+=a[v];
+    }
+    return;
 }
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
 //    freopen(".inp","r",stdin);
 //    freopen(".out","w",stdout);
-    int n;
+    int n,q,x,y,z;
+    ll k;
+    cin>>n>>q;
+    for(int i=1;i<n;++i){
+        cin>>x>>y;
+        gay[x].pb(y);
+        gay[y].pb(x);
+    }
+    dfs(1,0);
+    while(q--){
+        cin>>x>>y>>k;
+        z=lca(x,y);
+        a[x]+=k; a[y]+=k;
+        a[z]-=k;
+        a[cha[z][0]]-=k;
+    }
+    dfs2(1,0);
+    for(int i=1;i<=n;++i) cout<<a[i]<<" ";
     return 0;
 }
 /*
