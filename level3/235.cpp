@@ -29,24 +29,7 @@ const int N=200050,M=1000000007;
 const ll INF=1e18+7;
 
 void solve(){
-    string s;
-    cin >> s;
-    int n = (int)s.size();
-    vector<vector<int>>dp(n + 1, vector<int>(n + 1, M));
-    s = "$" + s;
-    for(int i = 1; i <= n; ++i)
-        dp[i][i] = 1;
-    for(int k = 2; k <= n; ++k){
-        for(int i = k; i <= n; ++i){
-            int x = i - k + 1;
-            int y = i;
-            for(int j = x; j < y; ++j)
-                dp[x][y] = min(dp[x][y], dp[x][j] + dp[j + 1][y]);
-            if(s[x] == s[y])
-                dp[x][y] = min(dp[x][y], min(dp[x + 1][y], dp[x][y - 1]));
-        }
-    }
-    cout << dp[1][n];
+    int n;
     return;
 }
 

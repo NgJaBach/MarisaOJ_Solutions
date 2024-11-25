@@ -25,28 +25,31 @@ typedef long double ld;
 #define mset(a) memset(a, 0, sizeof(a))
 #define setpre(x) fixed << setprecision(x)
 #define endl '\n'
-const int N=200050,M=1000000007;
+const int N=200050,M=123456789;
 const ll INF=1e18+7;
 
 void solve(){
-    string s;
-    cin >> s;
-    int n = (int)s.size();
-    vector<vector<int>>dp(n + 1, vector<int>(n + 1, M));
-    s = "$" + s;
-    for(int i = 1; i <= n; ++i)
-        dp[i][i] = 1;
-    for(int k = 2; k <= n; ++k){
-        for(int i = k; i <= n; ++i){
-            int x = i - k + 1;
-            int y = i;
-            for(int j = x; j < y; ++j)
-                dp[x][y] = min(dp[x][y], dp[x][j] + dp[j + 1][y]);
-            if(s[x] == s[y])
-                dp[x][y] = min(dp[x][y], min(dp[x + 1][y], dp[x][y - 1]));
-        }
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n + 1);
+    vector<vector<int>> dp(k + 1, vector<int>(n + 1, 0));
+    dp[0][0] = 1;
+    for(int i = 1; i <= n; ++i){
+        cin >> a[i];
+        dp[0][i] = 1;
     }
-    cout << dp[1][n];
+    for(int i = 1; i <= k; ++i){
+        vector<int>last(N, -1);
+        for(int j = i; j <= n; ++j){
+            dp[i][j] = (dp[i][j - 1] + dp[i - 1][j - 1]) % M;
+            if(last[a[j]] != -1)
+                dp[i][j] = (dp[i][j] - dp[i - 1][last[a[j]] - 1] + M) % M;
+            last[a[j]] = j;
+            // cout << dp[i][j] << " ";
+        }
+        // cout << endl;
+    }
+    cout << dp[k][n];
     return;
 }
 

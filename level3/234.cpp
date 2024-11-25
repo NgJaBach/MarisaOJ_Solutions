@@ -28,25 +28,33 @@ typedef long double ld;
 const int N=200050,M=1000000007;
 const ll INF=1e18+7;
 
+ll dp[N], ans;
+vector<int> connect[N];
+
+void dfs(int u, int p){
+	dp[u] = 1;
+	for(const int &v: connect[u]){
+		if(v == p)
+			continue;
+		dfs(v, u);
+		dp[u] = (dp[u] * (dp[v] + 1)) % M;
+	}
+	ans = (ans + dp[u]) % M;
+	return;
+}
+
 void solve(){
-    string s;
-    cin >> s;
-    int n = (int)s.size();
-    vector<vector<int>>dp(n + 1, vector<int>(n + 1, M));
-    s = "$" + s;
-    for(int i = 1; i <= n; ++i)
-        dp[i][i] = 1;
-    for(int k = 2; k <= n; ++k){
-        for(int i = k; i <= n; ++i){
-            int x = i - k + 1;
-            int y = i;
-            for(int j = x; j < y; ++j)
-                dp[x][y] = min(dp[x][y], dp[x][j] + dp[j + 1][y]);
-            if(s[x] == s[y])
-                dp[x][y] = min(dp[x][y], min(dp[x + 1][y], dp[x][y - 1]));
-        }
+    int n;
+    cin >> n;
+    for(int i = 1; i < n; ++i){
+    	int x, y;
+    	cin >> x >> y;
+    	connect[x].pb(y);
+    	connect[y].pb(x);
     }
-    cout << dp[1][n];
+    ans = 0;
+    dfs(1, 1);
+    cout << ans;
     return;
 }
 
