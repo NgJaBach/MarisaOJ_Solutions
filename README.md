@@ -1,12 +1,13 @@
-# MarisaOJ_Solutions
-MarisaOJ is an Online Judge made by former students of Amsterdam High School in Vietnam. Having a roadmap to help everyone learn Competitive Programming more efficient and strategically.
+# MarisaOJ Solutions
 
-I myself am not a staff member of the OJ, but I would like to share my solutions which got accepted on the OJ for consulting purpose.
+**MarisaOJ** is an online judge platform created by former students of Amsterdam High School in Vietnam. It is designed with a structured roadmap to help learners approach Competitive Programming more efficiently and strategically.
 
-Please don't copy my codes and submit them directly on the OJ, since:
-- You would gain nothing from doing so.
-- It is a waste of time.
+While I am not an official staff member of MarisaOJ, I would like to share my accepted solutions on the platform for reference and consultation purposes.
 
-I encourage you to share if you have any better idea compared to my solution. Contact me via facebook account or emailing me.
+**Important Notes**:
+- **Please do not copy my codes and submit them directly to MarisaOJ.** Doing so provides no learning benefit and is a misuse of your time.
+- Instead, review the solutions critically, understand the logic, and try to improve upon them.
 
-Good luck with your study, champ!
+If you have ideas for better solutions or optimizations, I encourage you to share them! Feel free to reach out to me via my Facebook account or email.
+
+Best of luck in your Competitive Programming journey, champ!
